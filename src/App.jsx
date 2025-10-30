@@ -5,7 +5,9 @@ import Features from './components/sections/Features/Features';
 import Carousel from './components/sections/Carousel/Carousel';
 import Testimonials from './components/sections/Testimonials/Testimonials';
 import CTA from './components/sections/CTA/CTA';
-import FAQ from './components/sections/FAQ/FAQ';  // ← Agregar
+import FAQ from './components/sections/FAQ/FAQ';
+import Footer from './components/common/Footer/Footer';
+import Register from './pages/Register/Register'; 
 import './styles/globals.css';
 
 function App() {
@@ -26,21 +28,19 @@ function App() {
       <Navbar onRegisterClick={handleRegisterClick} />
       
       {!showRegister ? (
-        <main>
-          <Hero />
-          <Features />
-          <Carousel />
-          <Testimonials />
-          <CTA onRegisterClick={handleRegisterClick} />
-          <FAQ />  {/* ← Agregar */}
-        </main>
+        <>
+          <main>
+            <Hero />
+            <Features />
+            <Carousel />
+            <Testimonials />
+            <CTA onRegisterClick={handleRegisterClick} />
+            <FAQ />
+          </main>
+          <Footer />
+        </>
       ) : (
-        <main>
-          <div style={{ paddingTop: '100px', textAlign: 'center' }}>
-            <h2>Página de Registro (En construcción)</h2>
-            <button onClick={handleBackToHome}>Volver al inicio</button>
-          </div>
-        </main>
+        <Register onBackToHome={handleBackToHome} /> 
       )}
     </div>
   );
