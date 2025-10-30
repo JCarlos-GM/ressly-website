@@ -1,68 +1,45 @@
-import { useState, useEffect } from 'react';
-import { healthCheck, usuariosAPI } from './services/api';
-import './App.css';
+import { useState } from 'react';
+import Navbar from './components/common/Navbar/Navbar';
+import Hero from './components/sections/Hero/Hero';
+import Features from './components/sections/Features/Features';
+import Carousel from './components/sections/Carousel/Carousel';
+import Testimonials from './components/sections/Testimonials/Testimonials';
+import CTA from './components/sections/CTA/CTA';  // ← Agregar
+import './styles/globals.css';
 
 function App() {
-  const [status, setStatus] = useState('Conectando...');
-  const [apiInfo, setApiInfo] = useState(null);
-  const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [showRegister, setShowRegister] = useState(false);
 
-  useEffect(() => {
-    const testConnection = async () => {
-      try {
-        // Probar health check
-        const health = await healthCheck();
-        setApiInfo(health);
-        setStatus('✅ API conectada correctamente');
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-        // Probar endpoint de usuarios
-        const users = await usuariosAPI.getAll();
-        setUsuarios(users);
-        
-        setLoading(false);
-      } catch (error) {
-        setStatus(`❌ Error: ${error.message}`);
-        setLoading(false);
-      }
-    };
-
-    testConnection();
-  }, []);
+  const handleBackToHome = () => {
+    setShowRegister(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <div className="App">
-      <h1>Ressly Website</h1>
+    <div className="app">
+      <Navbar onRegisterClick={handleRegisterClick} />
       
-      <div style={{ textAlign: 'left', maxWidth: '800px', margin: '20px auto' }}>
-        <h2>Estado de la API</h2>
-        <p><strong>URL:</strong> {import.meta.env.VITE_API_URL}</p>
-        <p><strong>Estado:</strong> {status}</p>
-        
-        {loading && <p>⏳ Cargando (puede tardar 30-60s si la API estaba dormida)...</p>}
-        
-        {apiInfo && (
-          <div>
-            <h3>Información de la API:</h3>
-            <pre style={{ background: '#f4f4f4', padding: '15px', borderRadius: '5px' }}>
-              {JSON.stringify(apiInfo, null, 2)}
-            </pre>
+      {!showRegister ? (
+        <main>
+          <Hero />
+          <Features />
+          <Carousel />
+          <Testimonials />
+          <CTA onRegisterClick={handleRegisterClick} />  {/* ← Agregar */}
+        </main>
+      ) : (
+        <main>
+          <div style={{ paddingTop: '100px', textAlign: 'center' }}>
+            <h2>Página de Registro (En construcción)</h2>
+            <button onClick={handleBackToHome}>Volver al inicio</button>
           </div>
-        )}
-
-        {usuarios.length > 0 && (
-          <div>
-            <h3>Usuarios ({usuarios.length}):</h3>
-            <ul>
-              {usuarios.map(user => (
-                <li key={user.id}>
-                  {user.nombre || user.name || JSON.stringify(user)}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
+        </main>
+      )}
     </div>
   );
 }

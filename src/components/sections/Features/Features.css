@@ -1,0 +1,34 @@
+/* src/components/sections/Features/Features.css */
+
+.features {
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  background: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-2xl);
+  color: var(--gray-900);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .section-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
