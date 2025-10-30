@@ -4,7 +4,8 @@ import Hero from './components/sections/Hero/Hero';
 import Features from './components/sections/Features/Features';
 import Carousel from './components/sections/Carousel/Carousel';
 import Testimonials from './components/sections/Testimonials/Testimonials';
-import CTA from './components/sections/CTA/CTA';  // ← Agregar
+import CTA from './components/sections/CTA/CTA';
+import FAQ from './components/sections/FAQ/FAQ';  // ← Agregar
 import './styles/globals.css';
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
           <Features />
           <Carousel />
           <Testimonials />
-          <CTA onRegisterClick={handleRegisterClick} />  {/* ← Agregar */}
+          <CTA onRegisterClick={handleRegisterClick} />
+          <FAQ />  {/* ← Agregar */}
         </main>
       ) : (
         <main>
