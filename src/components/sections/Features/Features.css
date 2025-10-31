@@ -1,34 +1,202 @@
 /* src/components/sections/Features/Features.css */
 
+:root {
+  --teal-200: #81E6D9;
+  --teal-500: #319795;
+  --teal-700: #00796B;
+  --teal-200A: #A5F3EB;
+  --teal-accent: #285E61;
+}
+
 .features {
-  padding: var(--spacing-3xl) var(--spacing-lg);
-  background: white;
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Formas decorativas */
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(165, 243, 235, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.features::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(49, 151, 149, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
 }
 
 .section-title {
   text-align: center;
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--spacing-2xl);
-  color: var(--gray-900);
+  font-size: 42px;
+  margin-bottom: 16px;
+  color: var(--teal-accent);
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
 }
 
+.features-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: var(--teal-700);
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* Tabs */
+.features-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: white;
+  border: 2px solid rgba(129, 230, 217, 0.3);
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--teal-accent);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tab-button:hover {
+  background: rgba(165, 243, 235, 0.1);
+  border-color: var(--teal-200);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(49, 151, 149, 0.15);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-700) 100%);
+  border-color: var(--teal-500);
+  color: white;
+  box-shadow: 0 6px 20px rgba(49, 151, 149, 0.3);
+}
+
+.tab-icon {
+  font-size: 20px;
+}
+
+/* Grid optimizado */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .features {
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: 60px 16px;
   }
 
   .section-title {
-    font-size: var(--font-size-3xl);
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .features-subtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .features-tabs {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .tab-button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 15px;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 28px;
+  }
+
+  .features-subtitle {
+    font-size: 15px;
+  }
+
+  .tab-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .tab-icon {
+    font-size: 18px;
+  }
+}
+
+/* Animación para reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .features-grid,
+  .tab-button {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -74,7 +74,7 @@ const Hero = () => {
       <div className="container hero-content">
         <div className="hero-text">
           <span className="hero-badge">
-            <span className="badge-icon">✨</span>
+            <span className="badge-icon"></span>
             Gratis para residentes
           </span>
           <h1 className="hero-title">
