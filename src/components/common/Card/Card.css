@@ -1,3 +1,11 @@
+/**
+ * Descripción:
+ * Estilos para un componente de "tarjeta" (Card) genérico.
+ * Incluye un efecto de hover opcional (.card-hover) y estilos
+ * para elementos internos como ícono, título y descripción.
+ */
+
+/* Estilo base para el contenedor de la tarjeta */
 .card {
   padding: var(--spacing-lg);
   background: white;
@@ -6,24 +14,40 @@
   transition: all var(--transition-base);
 }
 
+/* --------------------------------- */
+/* Efectos Opcionales                */
+/* --------------------------------- */
+
+/* Clase modificadora opcional. Añadir 'card-hover' a un .card
+   para activar este efecto de "elevación" al pasar el mouse. */
 .card-hover:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-xl);
 }
 
+/* --------------------------------- */
+/* Elementos Internos de la Tarjeta  */
+/* --------------------------------- */
+
+/* Estilo para el contenedor del ícono (si existe) */
 .card-icon {
   width: 64px;
   height: 64px;
   background: var(--primary-light);
   border-radius: var(--border-radius);
+  
+  /* Centra el ícono (SVG, font, etc.) dentro del contenedor */
   display: flex;
   align-items: center;
   justify-content: center;
+  
   margin-bottom: var(--spacing-md);
-  font-size: 32px;
+  font-size: 32px; /* Tamaño del ícono */
   transition: transform var(--transition-base);
 }
 
+/* Efecto de animación para el ícono, se activa solo si la tarjeta
+   padre tiene la clase '.card-hover' y se le pasa el mouse por encima. */
 .card-hover:hover .card-icon {
   transform: scale(1.1) rotate(5deg);
 }

@@ -1,6 +1,12 @@
-/* src/components/common/Button/Button.css */
+/**
+ * Descripción:
+ * Este archivo contiene todos los estilos para el componente reutilizable <Button>.
+ * Incluye los estilos base (.btn), variantes de color (primary, secondary, etc.),
+ * modificadores de tamaño (small, large) y estados (disabled, loading).
+ */
 
 .btn {
+  /* Usamos flexbox para centrar y alinear contenido (ícono + texto) */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -15,6 +21,8 @@
   outline: none;
   text-decoration: none;
   white-space: nowrap;
+  
+  /* Evita que el texto del botón pueda ser seleccionado */
   user-select: none;
 }
 
@@ -29,6 +37,7 @@
   color: white;
 }
 
+/* :not(:disabled) evita que el hover se active en botones deshabilitados */
 .btn-primary:hover:not(:disabled) {
   background: var(--secondary-dark);
   transform: translateY(-2px);
@@ -87,15 +96,21 @@
 
 /* Loading state */
 .btn-loading {
+  /* Establece el contexto de posición para el .btn-spinner */
   position: relative;
+  
+  /* Oculta el texto, pero permite que el spinner herede el color */
   color: transparent;
 }
 
 .btn-spinner {
+  /* Se posiciona absolutamente en el centro del .btn-loading */
   position: absolute;
   width: 20px;
   height: 20px;
   border: 2px solid currentColor;
+  
+  /* Este borde transparente es lo que crea el efecto de "arco" */
   border-top-color: transparent;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -104,5 +119,6 @@
 .btn-icon {
   display: inline-flex;
   align-items: center;
+  /* Hace el ícono un 20% más grande que el texto */
   font-size: 1.2em;
 }
