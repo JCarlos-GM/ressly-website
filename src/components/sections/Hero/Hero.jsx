@@ -1,6 +1,7 @@
 // src/components/sections/Hero/Hero.jsx
 import { useState, useEffect } from 'react';
 import Button from '../../common/Button/Button';
+import { CreditCard, MessageCircle, BarChart3, Apple, Download, Monitor } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
@@ -65,10 +66,7 @@ const Hero = () => {
   };
 
   const handleAccessPanel = () => {
-    // Cambia esta URL por la de tu panel administrativo
     window.open('https://admin.ressly.com', '_blank', 'noopener,noreferrer');
-    // O si está en el mismo dominio:
-    // window.location.href = '/admin/login';
   };
 
   return (
@@ -91,15 +89,15 @@ const Hero = () => {
           {/* Features destacados */}
           <div className="hero-features">
             <div className="feature-item">
-              <span className="feature-icon">💳</span>
+              <CreditCard className="feature-icon" size={18} strokeWidth={2.5} />
               <span>Pagos seguros</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">💬</span>
+              <MessageCircle className="feature-icon" size={18} strokeWidth={2.5} />
               <span>Chat integrado</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">📊</span>
+              <BarChart3 className="feature-icon" size={18} strokeWidth={2.5} />
               <span>Reportes en tiempo real</span>
             </div>
           </div>
@@ -108,7 +106,7 @@ const Hero = () => {
             <Button 
               variant="primary" 
               size="large"
-              icon={userOS === 'ios' ? '🍎' : '📥'}
+              icon={userOS === 'ios' ? <Apple size={20} /> : <Download size={20} />}
               onClick={handleDownload}
             >
               Descargar app móvil
@@ -116,7 +114,7 @@ const Hero = () => {
             <Button 
               variant="secondary" 
               size="large"
-              icon="🖥️"
+              icon={<Monitor size={20} />}
               onClick={handleAccessPanel}
             >
               Panel administrativo
@@ -158,9 +156,9 @@ const Hero = () => {
             {/* Efectos decorativos */}
             <div className="phone-glow"></div>
             <div className="floating-elements">
-              <div className="floating-element" style={{'--delay': '0s'}}>💳</div>
-              <div className="floating-element" style={{'--delay': '1s'}}>📊</div>
-              <div className="floating-element" style={{'--delay': '2s'}}>🔔</div>
+              <CreditCard className="floating-element" style={{'--delay': '0s'}} size={32} />
+              <BarChart3 className="floating-element" style={{'--delay': '1s'}} size={32} />
+              <MessageCircle className="floating-element" style={{'--delay': '2s'}} size={32} />
             </div>
           </div>
 
