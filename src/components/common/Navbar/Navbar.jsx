@@ -1,6 +1,7 @@
 // src/components/common/Navbar/Navbar.jsx
 import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
+import { Menu, X, Home, Grid3x3, MessageSquare, HelpCircle } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = ({ onRegisterClick }) => {
@@ -16,6 +17,19 @@ const Navbar = ({ onRegisterClick }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Cerrar menú al hacer scroll
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -23,72 +37,142 @@ const Navbar = ({ onRegisterClick }) => {
   const handleNavClick = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = 80; // Altura del navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
       setIsMobileMenuOpen(false);
     }
   };
 
   return (
-    <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
-      <div className="container navbar-content">
-        {/* Logo */}
-        <div className="navbar-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="logo-icon">R</div>
-          <div className="logo-text">
-            <h1>ressly</h1>
-            <p>TODO EN ORDEN</p>
+    <>
+      <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+        <div className="container navbar-content">
+          {/* Logo */}
+          <div 
+            className="navbar-logo" 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            <div className="logo-icon">R</div>
+            <div className="logo-text">
+              <h1>ressly</h1>
+              <p>TODO EN ORDEN</p>
+            </div>
           </div>
+
+          {/* Desktop Navigation */}
+          <nav className="navbar-nav">
+            <a 
+              href="#features" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                handleNavClick('features'); 
+              }}
+            >
+              <Grid3x3 size={18} />
+              <span>Características</span>
+            </a>
+            <a 
+              href="#testimonials" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                handleNavClick('testimonials'); 
+              }}
+            >
+              <MessageSquare size={18} />
+              <span>Testimonios</span>
+            </a>
+            <a 
+              href="#faq" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                handleNavClick('faq'); 
+              }}
+            >
+              <HelpCircle size={18} />
+              <span>FAQ</span>
+            </a>
+            <Button variant="secondary" size="small" onClick={onRegisterClick}>
+              Registrarme
+            </Button>
+          </nav>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className={`navbar-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+      </header>
 
-        {/* Desktop Navigation */}
-        <nav className="navbar-nav">
-          <a href="#features" onClick={(e) => { e.preventDefault(); handleNavClick('features'); }}>
-            Características
-          </a>
-          <a href="#testimonials" onClick={(e) => { e.preventDefault(); handleNavClick('testimonials'); }}>
-            Testimonios
-          </a>
-          <a href="#faq" onClick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>
-            FAQ
-          </a>
-          <Button variant="secondary" onClick={onRegisterClick}>
-            Registrarme
-          </Button>
-        </nav>
-
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="navbar-toggle"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? '✕' : '☰'}
-        </button>
-      </div>
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="navbar-overlay" 
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
       {/* Mobile Menu */}
       <div className={`navbar-mobile ${isMobileMenuOpen ? 'navbar-mobile-open' : ''}`}>
-        <a href="#features" onClick={(e) => { e.preventDefault(); handleNavClick('features'); }}>
-          Características
-        </a>
-        <a href="#testimonials" onClick={(e) => { e.preventDefault(); handleNavClick('testimonials'); }}>
-          Testimonios
-        </a>
-        <a href="#faq" onClick={(e) => { e.preventDefault(); handleNavClick('faq'); }}>
-          FAQ
-        </a>
-        <Button 
-          variant="primary" 
-          fullWidth 
-          onClick={() => {
-            onRegisterClick();
-            setIsMobileMenuOpen(false);
-          }}
-        >
-          Registrarme
-        </Button>
+        <nav className="navbar-mobile-nav">
+          <a 
+            href="#features" 
+            onClick={(e) => { 
+              e.preventDefault(); 
+              handleNavClick('features'); 
+            }}
+          >
+            <Grid3x3 size={20} />
+            <span>Características</span>
+          </a>
+          <a 
+            href="#testimonials" 
+            onClick={(e) => { 
+              e.preventDefault(); 
+              handleNavClick('testimonials'); 
+            }}
+          >
+            <MessageSquare size={20} />
+            <span>Testimonios</span>
+          </a>
+          <a 
+            href="#faq" 
+            onClick={(e) => { 
+              e.preventDefault(); 
+              handleNavClick('faq'); 
+            }}
+          >
+            <HelpCircle size={20} />
+            <span>FAQ</span>
+          </a>
+          <div className="navbar-mobile-cta">
+            <Button 
+              variant="primary" 
+              size="large"
+              onClick={() => {
+                onRegisterClick();
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Registrarme
+            </Button>
+          </div>
+        </nav>
       </div>
-    </header>
+    </>
   );
 };
 
