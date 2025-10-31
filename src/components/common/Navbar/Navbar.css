@@ -49,14 +49,10 @@
   transform: scale(1.02);
 }
 
-/* --- CAMBIO AQUÍ --- */
-/* Nueva regla para el logo SVG */
 .logo-image {
-  height: 55px; /* Altura fija para el logo en Navbar (se verá igual en PC y Móvil) */
-  width: auto;  /* Ancho automático para mantener proporción */
+  height: 55px; 
+  width: auto;  
 }
-/* --- FIN DE CAMBIOS --- */
-
 
 /* Desktop Navigation */
 .navbar-nav {
@@ -216,9 +212,6 @@
     display: block;
   }
 
-  /* --- CAMBIO AQUÍ --- */
-  /* Se eliminó la regla .logo-image { height: 36px; } */
-  
 }
 
 @media (max-width: 480px) {
@@ -226,9 +219,6 @@
     padding: 0 12px;
   }
 
-  /* --- CAMBIO AQUÍ --- */
-  /* Se eliminó la regla .logo-image { height: 32px; } */
-  
   .navbar-mobile-nav a {
     font-size: 15px;
     padding: 14px;
