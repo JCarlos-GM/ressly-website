@@ -1,7 +1,6 @@
-// src/components/common/Navbar/Navbar.jsx
 import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
-import { Menu, X, Home, Grid3x3, MessageSquare, HelpCircle } from 'lucide-react';
+import { Menu, X, Grid3x3, MessageSquare, HelpCircle } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = ({ onRegisterClick }) => {
@@ -53,6 +52,8 @@ const Navbar = ({ onRegisterClick }) => {
     <>
       <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
         <div className="container navbar-content">
+          
+          {/* --- CAMBIO AQUÍ --- */}
           {/* Logo */}
           <div 
             className="navbar-logo" 
@@ -61,12 +62,15 @@ const Navbar = ({ onRegisterClick }) => {
               setIsMobileMenuOpen(false);
             }}
           >
-            <div className="logo-icon">R</div>
-            <div className="logo-text">
-              <h1>ressly</h1>
-              <p>TODO EN ORDEN</p>
-            </div>
+            {/* Reemplazamos el icono 'R' y el texto por el logo SVG */}
+            <img 
+              src="/images/logo_ressly_green.svg" 
+              alt="Ressly Logo" 
+              className="logo-image" 
+            />
           </div>
+          {/* --- FIN DEL CAMBIO --- */}
+
 
           {/* Desktop Navigation */}
           <nav className="navbar-nav">

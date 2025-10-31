@@ -1,4 +1,4 @@
-// src/components/sections/Footer/Footer.jsx
+// src/components/common/Footer/Footer.jsx
 
 import React from 'react';
 // 1. Importa tu archivo CSS normal
@@ -35,13 +35,18 @@ const Footer = () => {
         <div className="footer-grid">
           {/* Company Info */}
           <div className="footer-section footer-brand">
+            
+            {/* --- CAMBIO AQUÍ --- */}
+            {/* Se eliminó el div "logo-text" que contenía el H1 y el P */}
             <div className="footer-logo" onClick={handleScrollToTop}>
-              <div className="logo-icon">R</div>
-              <div className="logo-text">
-                <h1>ressly</h1>
-                <p>TODO EN ORDEN</p>
-              </div>
+              <img 
+                src="/images/logo_ressly_white.svg" 
+                alt="Ressly Logo" 
+                className="logo-image" 
+              />
             </div>
+            {/* --- FIN DEL CAMBIO --- */}
+
             <p className="footer-description">
               La plataforma más completa para la gestión de residencias estudiantiles y departamentos. 
               Simplificamos la administración para que puedas enfocarte en lo importante.

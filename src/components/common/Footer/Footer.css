@@ -1,4 +1,4 @@
-/* src/components/sections/Footer/Footer.css */
+/* src/components/common/Footer/Footer.css */
 
 /* 1. DEFINIMOS LAS VARIABLES
   (Usando la paleta "teal" de tu Hero y espaciados/transiciones de ejemplo)
@@ -98,24 +98,18 @@
   opacity: 0.8;
 }
 
-.footer-logo .logo-icon {
-  width: 40px;
-  height: 40px;
-  /* CAMBIO: Usamos el teal-500 de tu paleta */
-  background: var(--teal-500); 
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
+/* --- CAMBIO AQUÍ --- */
+/* Esta regla es para tu nuevo logo SVG (que incluye el texto) */
+.footer-logo .logo-image {
+  height: 100px;  /* AJUSTE: Altura fija (puedes cambiar este valor) */
+  width: auto;   /* AJUSTE: Ancho automático para respetar la proporción del logo */
 }
 
 .footer-logo .logo-text h1 {
   font-size: 20px;
   color: var(--text-primary-dark-bg); /* Blanco para título */
   margin: 0;
+  /* Esta regla ya no se usa visualmente, pero se queda aquí */
 }
 
 .footer-logo .logo-text p {
@@ -124,6 +118,7 @@
   color: var(--text-secondary-dark-bg); 
   margin: 0;
   letter-spacing: 0.5px;
+  /* Esta regla ya no se usa visualmente, pero se queda aquí */
 }
 
 .footer-description {
@@ -150,7 +145,6 @@
   border-radius: 50%;
   /* CAMBIO: Color de ícono Lucide */
   color: var(--teal-200A); 
-  /* font-size ya no es necesario para Lucide, se controla con 'size' en JSX */
   transition: all var(--transition-base);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil */
 }
@@ -527,3 +521,4 @@
   outline: 2px solid var(--teal-200A); /* Color de enfoque accesibilidad */
   outline-offset: 2px;
 }
+
