@@ -101,14 +101,14 @@ const Features = () => {
             className={`tab-button ${activeTab === 'principales' ? 'active' : ''}`}
             onClick={() => setActiveTab('principales')}
           >
-            <span className="tab-icon">⭐</span>
+            <span className="tab-icon"></span>
             Características Principales
           </button>
           <button
             className={`tab-button ${activeTab === 'adicionales' ? 'active' : ''}`}
             onClick={() => setActiveTab('adicionales')}
           >
-            <span className="tab-icon">✨</span>
+            <span className="tab-icon"></span>
             Funciones Adicionales
           </button>
         </div>
