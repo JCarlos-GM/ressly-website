@@ -3,6 +3,20 @@ import Input from '../../components/common/Input/Input';
 import Button from '../../components/common/Button/Button';
 import './Register.css';
 
+import { 
+  User, 
+  Mail, 
+  Phone, 
+  Lock, 
+  Building, 
+  DoorOpen, 
+  Ticket, 
+  Check, 
+  Circle, 
+  ArrowLeft,
+  AlertTriangle 
+} from 'lucide-react';
+
 const Register = ({ onBackToHome }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -32,7 +46,6 @@ const Register = ({ onBackToHome }) => {
     }
   });
 
-  // Password strength checker
   const checkPasswordStrength = (password) => {
     const requirements = {
       length: password.length >= 8,
@@ -51,7 +64,6 @@ const Register = ({ onBackToHome }) => {
     });
   };
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
@@ -61,7 +73,6 @@ const Register = ({ onBackToHome }) => {
       [name]: newValue
     }));
 
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -69,34 +80,28 @@ const Register = ({ onBackToHome }) => {
       }));
     }
 
-    // Check password strength
     if (name === 'password') {
       checkPasswordStrength(value);
     }
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
 
-    // Name validation
     if (formData.name.trim().length < 3) {
       newErrors.name = 'El nombre debe tener al menos 3 caracteres';
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Ingresa un correo electrónico válido';
     }
 
-    // Phone validation
     const phoneRegex = /^\+?\d{10,}$/;
     if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Ingresa un número de teléfono válido';
     }
 
-    // Password validation
     if (!passwordStrength.requirements.length || 
         !passwordStrength.requirements.uppercase || 
         !passwordStrength.requirements.number || 
@@ -104,38 +109,31 @@ const Register = ({ onBackToHome }) => {
       newErrors.password = 'La contraseña no cumple los requisitos mínimos';
     }
 
-    // Confirm password validation
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
 
-    // Residence name validation
     if (formData.residenceName.trim().length < 5) {
       newErrors.residenceName = 'El nombre debe tener al menos 5 caracteres';
     }
 
-    // Address validation
     if (formData.address.trim().length < 10) {
       newErrors.address = 'Ingresa una dirección completa';
     }
 
-    // Rooms validation
     const rooms = parseInt(formData.rooms);
     if (isNaN(rooms) || rooms < 5 || rooms > 500) {
       newErrors.rooms = 'Debe ser un número entre 5 y 500';
     }
 
-    // Residence type validation
     if (!formData.residenceType) {
       newErrors.residenceType = 'Selecciona un tipo de residencia';
     }
 
-    // Invite code validation
     if (formData.inviteCode.length !== 6) {
       newErrors.inviteCode = 'El código debe tener 6 caracteres';
     }
 
-    // Terms validation
     if (!formData.acceptTerms) {
       newErrors.acceptTerms = 'Debes aceptar los términos para continuar';
     }
@@ -144,12 +142,10 @@ const Register = ({ onBackToHome }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      // Scroll to first error
       const firstError = Object.keys(errors)[0];
       const element = document.getElementsByName(firstError)[0];
       if (element) {
@@ -160,11 +156,8 @@ const Register = ({ onBackToHome }) => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Success
       setShowSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
@@ -180,7 +173,9 @@ const Register = ({ onBackToHome }) => {
       <div className="register-page">
         <div className="container">
           <div className="success-message">
-            <div className="success-icon">✓</div>
+            <div className="success-icon">
+              <Check size={40} />
+            </div>
             <h2>¡Bienvenido a Ressly!</h2>
             <p>
               Tu cuenta ha sido creada exitosamente. Te hemos enviado un correo de verificación a{' '}
@@ -208,15 +203,14 @@ const Register = ({ onBackToHome }) => {
     <div className="register-page">
       <div className="container">
         <div className="register-header">
-          <Button variant="ghost" onClick={onBackToHome}>
-            ← Volver al inicio
+          <Button variant="ghost" onClick={onBackToHome} icon={<ArrowLeft size={16} />}>
+            Volver al inicio
           </Button>
           <h1>Comienza a gestionar tu residencia hoy</h1>
           <p>Crea tu cuenta de administrador en menos de 2 minutos</p>
         </div>
 
         <form className="register-form" onSubmit={handleSubmit}>
-          {/* Personal Information */}
           <div className="form-section">
             <h3 className="form-section-title">Información Personal</h3>
             
@@ -227,7 +221,7 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.name}
               placeholder="Juan Pérez García"
-              icon="👤"
+              icon={<User size={18} />}
               required
             />
 
@@ -239,7 +233,7 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.email}
               placeholder="tu@correo.com"
-              icon="📧"
+              icon={<Mail size={18} />}
               required
             />
 
@@ -251,7 +245,7 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.phone}
               placeholder="+52 444 123 4567"
-              icon="📱"
+              icon={<Phone size={18} />}
               required
             />
 
@@ -263,7 +257,7 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.password}
               placeholder="••••••••"
-              icon="🔒"
+              icon={<Lock size={18} />}
               required
             />
 
@@ -278,26 +272,34 @@ const Register = ({ onBackToHome }) => {
                   ))}
                 </div>
                 <p className="strength-label" style={{ 
-                  color: passwordStrength.score < 2 ? 'var(--error)' : 
-                         passwordStrength.score < 4 ? 'var(--warning)' : 'var(--success)'
+                  color: passwordStrength.score < 2 ? 'var(--color-error)' : 
+                         passwordStrength.score < 4 ? 'var(--color-warning)' : 'var(--color-success)'
                 }}>
                   {passwordStrength.label}
                 </p>
                 <div className="password-requirements">
                   <div className={`requirement ${passwordStrength.requirements.length ? 'met' : ''}`}>
-                    <span>{passwordStrength.requirements.length ? '✓' : '○'}</span>
+                    <span className="icon">
+                      {passwordStrength.requirements.length ? <Check size={16} /> : <Circle size={16} />}
+                    </span>
                     Al menos 8 caracteres
                   </div>
                   <div className={`requirement ${passwordStrength.requirements.uppercase ? 'met' : ''}`}>
-                    <span>{passwordStrength.requirements.uppercase ? '✓' : '○'}</span>
+                    <span className="icon">
+                      {passwordStrength.requirements.uppercase ? <Check size={16} /> : <Circle size={16} />}
+                    </span>
                     Una letra mayúscula
                   </div>
                   <div className={`requirement ${passwordStrength.requirements.number ? 'met' : ''}`}>
-                    <span>{passwordStrength.requirements.number ? '✓' : '○'}</span>
+                    <span className="icon">
+                      {passwordStrength.requirements.number ? <Check size={16} /> : <Circle size={16} />}
+                    </span>
                     Un número
                   </div>
                   <div className={`requirement ${passwordStrength.requirements.special ? 'met' : ''}`}>
-                    <span>{passwordStrength.requirements.special ? '✓' : '○'}</span>
+                    <span className="icon">
+                      {passwordStrength.requirements.special ? <Check size={16} /> : <Circle size={16} />}
+                    </span>
                     Un carácter especial
                   </div>
                 </div>
@@ -312,12 +314,11 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.confirmPassword}
               placeholder="••••••••"
-              icon="🔒"
+              icon={<Lock size={18} />}
               required
             />
           </div>
 
-          {/* Residence Information */}
           <div className="form-section">
             <h3 className="form-section-title">Información de la Residencia</h3>
             
@@ -328,7 +329,7 @@ const Register = ({ onBackToHome }) => {
               onChange={handleChange}
               error={errors.residenceName}
               placeholder="Residencia Estudiantil San Francisco"
-              icon="🏢"
+              icon={<Building size={18} />}
               required
             />
 
@@ -348,7 +349,7 @@ const Register = ({ onBackToHome }) => {
               />
               {errors.address && (
                 <span className="input-error">
-                  <span className="error-icon">⚠️</span>
+                  <span className="error-icon"><AlertTriangle size={14} /></span>
                   {errors.address}
                 </span>
               )}
@@ -365,7 +366,7 @@ const Register = ({ onBackToHome }) => {
               min="5"
               max="500"
               helperText="Mínimo 5, máximo 500"
-              icon="🚪"
+              icon={<DoorOpen size={18} />}
               required
             />
 
@@ -390,14 +391,13 @@ const Register = ({ onBackToHome }) => {
               </select>
               {errors.residenceType && (
                 <span className="input-error">
-                  <span className="error-icon">⚠️</span>
+                  <span className="error-icon"><AlertTriangle size={14} /></span>
                   {errors.residenceType}
                 </span>
               )}
             </div>
           </div>
 
-          {/* Invite Code */}
           <div className="form-section">
             <h3 className="form-section-title">Código de Invitación</h3>
             
@@ -417,12 +417,11 @@ const Register = ({ onBackToHome }) => {
                   </a>
                 </>
               }
-              icon="🎫"
+              icon={<Ticket size={18} />}
               required
             />
           </div>
 
-          {/* Terms */}
           <div className="form-section">
             <label className="checkbox-label">
               <input
@@ -444,21 +443,19 @@ const Register = ({ onBackToHome }) => {
             </label>
             {errors.acceptTerms && (
               <span className="input-error">
-                <span className="error-icon">⚠️</span>
+                <span className="error-icon"><AlertTriangle size={14} /></span>
                 {errors.acceptTerms}
               </span>
             )}
           </div>
 
-          {/* Submit Error */}
           {errors.submit && (
             <div className="submit-error">
-              <span className="error-icon">⚠️</span>
+              <span className="error-icon"><AlertTriangle size={18} /></span>
               {errors.submit}
             </div>
           )}
 
-          {/* Submit Button */}
           <Button
             type="submit"
             variant="primary"
