@@ -1,19 +1,69 @@
+/* src/components/sections/Footer/Footer.css */
+
+/* 1. DEFINIMOS LAS VARIABLES
+  (Usando la paleta "teal" de tu Hero y espaciados/transiciones de ejemplo)
+*/
+:root {
+  /* Paleta "Teal" del Hero */
+  --teal-200: #81E6D9;
+  --teal-500: #319795;
+  --teal-700: #00796B;
+  --teal-200A: #A5F3EB;    /* Color de acento brillante */
+  --teal-accent: #285E61;  /* Color de fondo oscuro */
+
+  /* Variables de espaciado y UI (valores de ejemplo, ajusta si tienes un sistema global) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 18px;
+
+  --border-radius: 8px;
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  
+  /* Nuevas variables de texto para el footer sobre fondo oscuro */
+  --text-primary-dark-bg: #FFFFFF;
+  --text-secondary-dark-bg: rgba(255, 255, 255, 0.7); /* Reemplazo de gray-600 */
+}
+
+/* 2. ESTILO BASE DEL FOOTER */
 .footer {
-  background: var(--gray-900);
-  color: white;
+  /* CAMBIO: Usamos el color oscuro de tu Hero para el fondo */
+  background: var(--teal-accent); 
+  color: var(--text-primary-dark-bg);
   padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-lg);
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(165, 243, 235, 0.1); /* Ligerísimo borde superior */
 }
 
+/* CAMBIO: La "línea de gradiente" ahora es un efecto más sutil para encajar con el estilo "glassmorphism" */
 .footer::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  height: 2px; /* Más sutil */
+  /* CAMBIO: Usamos tus colores de acento teal */
+  background: linear-gradient(90deg, var(--teal-200A), var(--teal-500), var(--teal-700));
+  filter: blur(1px); /* Suaviza el gradiente */
+  opacity: 0.7;
+}
+
+/* Contenedor principal para centrar el contenido */
+.footer .container {
+  max-width: 1280px; /* Asegura un ancho máximo */
+  margin: 0 auto;
+  padding: 0 20px; /* Padding horizontal para el contenido */
 }
 
 /* Footer Grid */
@@ -51,7 +101,8 @@
 .footer-logo .logo-icon {
   width: 40px;
   height: 40px;
-  background: var(--primary);
+  /* CAMBIO: Usamos el teal-500 de tu paleta */
+  background: var(--teal-500); 
   border-radius: var(--border-radius);
   display: flex;
   align-items: center;
@@ -63,19 +114,21 @@
 
 .footer-logo .logo-text h1 {
   font-size: 20px;
-  color: white;
+  color: var(--text-primary-dark-bg); /* Blanco para título */
   margin: 0;
 }
 
 .footer-logo .logo-text p {
-  font-size: 10px;
-  color: var(--gray-600);
+  font-size: var(--font-size-xs);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   margin: 0;
   letter-spacing: 0.5px;
 }
 
 .footer-description {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   line-height: 1.6;
   margin-bottom: var(--spacing-md);
 }
@@ -92,15 +145,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  /* CAMBIO: Fondo más integrado */
+  background: rgba(165, 243, 235, 0.1); 
   border-radius: 50%;
-  font-size: 20px;
+  /* CAMBIO: Color de ícono Lucide */
+  color: var(--teal-200A); 
+  /* font-size ya no es necesario para Lucide, se controla con 'size' en JSX */
   transition: all var(--transition-base);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil */
 }
 
 .social-link:hover {
-  background: var(--primary);
+  /* CAMBIO: Hover con tu color primario (teal-500) */
+  background: var(--teal-500); 
+  color: white; /* El ícono se vuelve blanco al hacer hover */
   transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(49, 151, 149, 0.4); /* Sombra más pronunciada */
 }
 
 /* Footer Links */
@@ -108,7 +168,7 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   margin-bottom: var(--spacing-sm);
-  color: white;
+  color: var(--text-primary-dark-bg);
 }
 
 .footer-links {
@@ -116,18 +176,23 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  padding: 0; /* Asegurar que no haya padding por defecto de la lista */
+  margin: 0;
 }
 
 .footer-links a {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   text-decoration: none;
   transition: all var(--transition-fast);
   display: inline-block;
 }
 
 .footer-links a:hover {
-  color: var(--primary);
-  transform: translateX(5px);
+  /* CAMBIO: Hover con tu color de acento brillante */
+  color: var(--teal-200A); 
+  /* CAMBIO: Efecto de hover más sutil */
+  transform: translateX(3px); 
 }
 
 /* Download Buttons */
@@ -142,22 +207,30 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* CAMBIO: Fondo y borde más integrados */
+  background: rgba(165, 243, 235, 0.1); 
+  border: 1px solid rgba(165, 243, 235, 0.2);
   border-radius: var(--border-radius);
-  color: white;
+  color: var(--text-primary-dark-bg);
   text-decoration: none;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .download-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: var(--primary);
+  /* CAMBIO: Hover con tu color primario */
+  background: rgba(165, 243, 235, 0.2); 
+  border-color: var(--teal-500);
   transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(49, 151, 149, 0.2);
 }
 
 .download-icon {
-  font-size: 24px;
+  /* CAMBIO: Color de ícono Lucide. El tamaño se controla en JSX. */
+  color: var(--teal-200A); 
+  display: flex; /* Asegura que el SVG esté bien centrado si es un contenedor */
+  align-items: center;
+  justify-content: center;
 }
 
 .download-text {
@@ -167,7 +240,8 @@
 
 .download-label {
   font-size: var(--font-size-xs);
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
 }
 
 .download-store {
@@ -184,10 +258,12 @@
   font-size: var(--font-size-base);
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
+  color: var(--text-primary-dark-bg);
 }
 
 .newsletter-text {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   font-size: var(--font-size-sm);
   margin-bottom: var(--spacing-sm);
 }
@@ -200,44 +276,54 @@
 .newsletter-input {
   flex: 1;
   padding: var(--spacing-sm);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(165, 243, 235, 0.1); /* Fondo más claro y translúcido */
+  border: 1px solid rgba(165, 243, 235, 0.2);
   border-radius: var(--border-radius);
-  color: white;
+  color: var(--text-primary-dark-bg);
   font-size: var(--font-size-sm);
   transition: all var(--transition-base);
 }
 
 .newsletter-input:focus {
   outline: none;
-  border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--teal-200A); /* Borde de enfoque con acento */
+  background: rgba(165, 243, 235, 0.15);
 }
 
 .newsletter-input::placeholder {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: rgba(255, 255, 255, 0.5); /* Placeholder un poco más claro */
 }
 
 .newsletter-btn {
   padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--primary);
+  /* CAMBIO: Botón de newsletter con el color primario (teal-500) */
+  background: var(--teal-500); 
   border: none;
   border-radius: var(--border-radius);
   color: white;
-  font-size: var(--font-size-lg);
+  /* CAMBIO: Para Lucide, usamos flex para centrar y el tamaño se controla en JSX */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg); /* Tamaño de flecha si no es Lucide */
   cursor: pointer;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .newsletter-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.05);
+  /* CAMBIO: Hover del botón */
+  background: var(--teal-700); 
+  transform: translateY(-2px); /* Un leve movimiento hacia arriba */
+  box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
 }
 
 /* Divider */
 .footer-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  /* CAMBIO: Divisor más sutil y a tono */
+  background: rgba(165, 243, 235, 0.15); 
   margin: var(--spacing-2xl) 0;
 }
 
@@ -257,7 +343,8 @@
 }
 
 .footer-copyright {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   font-size: var(--font-size-sm);
 }
 
@@ -269,18 +356,21 @@
 }
 
 .footer-legal a {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   font-size: var(--font-size-sm);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .footer-legal a:hover {
-  color: var(--primary);
+  /* CAMBIO: Hover con tu color de acento brillante */
+  color: var(--teal-200A); 
 }
 
 .separator {
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
 }
 
 /* Back to Top Button */
@@ -289,20 +379,25 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* CAMBIO: Fondo y borde más integrados */
+  background: rgba(165, 243, 235, 0.1); 
+  border: 1px solid rgba(165, 243, 235, 0.2);
   border-radius: var(--border-radius);
-  color: white;
+  color: var(--text-primary-dark-bg);
   cursor: pointer;
   font-size: var(--font-size-sm);
   font-weight: 500;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .back-to-top:hover {
-  background: var(--primary);
-  border-color: var(--primary);
+  /* CAMBIO: Hover con tu color primario */
+  background: var(--teal-500); 
+  border-color: var(--teal-500);
+  color: white;
   transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(49, 151, 149, 0.4);
 }
 
 /* Trust Badges */
@@ -312,7 +407,8 @@
   gap: var(--spacing-xl);
   margin-top: var(--spacing-2xl);
   padding-top: var(--spacing-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  /* CAMBIO: Borde superior más sutil y a tono */
+  border-top: 1px solid rgba(165, 243, 235, 0.15); 
   flex-wrap: wrap;
 }
 
@@ -320,12 +416,18 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  color: var(--gray-600);
+  /* CAMBIO: Usamos el nuevo color secundario */
+  color: var(--text-secondary-dark-bg); 
   font-size: var(--font-size-sm);
 }
 
 .trust-icon {
-  font-size: var(--font-size-lg);
+  /* CAMBIO: Color para los íconos Lucide en trust badges */
+  color: var(--teal-200A); 
+  display: flex; /* Para centrar SVGs */
+  align-items: center;
+  justify-content: center;
+  /* font-size ya no es necesario, se controla con 'size' en JSX */
 }
 
 /* Responsive */
@@ -378,11 +480,50 @@
     align-items: center;
     gap: var(--spacing-sm);
   }
+
+  .footer .container {
+    padding: 0 16px; /* Ajuste el padding en móviles */
+  }
 }
+
+@media (max-width: 480px) {
+  .footer-logo .logo-text h1 {
+    font-size: 18px;
+  }
+  .footer-logo .logo-text p {
+    font-size: 9px;
+  }
+  .footer-title {
+    font-size: var(--font-size-base);
+  }
+  .footer-links a,
+  .footer-copyright,
+  .footer-legal a,
+  .trust-badge,
+  .newsletter-text {
+    font-size: var(--font-size-sm);
+  }
+  .newsletter-input,
+  .newsletter-btn {
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+  .newsletter-btn {
+    width: 40px; /* Hacer el botón de newsletter más compacto */
+    height: 40px;
+  }
+  .download-btn {
+    padding: var(--spacing-sm);
+  }
+  .download-icon {
+    font-size: 20px;
+  }
+}
+
 
 /* Accessibility */
 .footer a:focus,
 .footer button:focus {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--teal-200A); /* Color de enfoque accesibilidad */
   outline-offset: 2px;
 }

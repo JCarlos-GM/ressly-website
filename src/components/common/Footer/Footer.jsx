@@ -1,4 +1,17 @@
+// src/components/sections/Footer/Footer.jsx
+
+import React from 'react';
+// 1. Importa tu archivo CSS normal
 import './Footer.css';
+
+// 2. Importa los íconos de lucide-react que vas a usar
+import {
+  Facebook, Twitter, Instagram, Linkedin, // Para redes sociales
+  Smartphone, Apple, // Para botones de descarga
+  Send, // Para newsletter
+  ArrowUp, // Para botón "Volver arriba"
+  Lock, CheckCircle, MapPin // Para Trust Badges (Lock, CheckCircle, MapPin para "Hecho en México")
+} from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,6 +28,7 @@ const Footer = () => {
   };
 
   return (
+    // 3. Usa los nombres de clase como strings (como siempre lo has hecho)
     <footer className="footer">
       <div className="container">
         {/* Main Footer Content */}
@@ -33,17 +47,18 @@ const Footer = () => {
               Simplificamos la administración para que puedas enfocarte en lo importante.
             </p>
             <div className="footer-social">
+              {/* CAMBIO: Íconos de Lucide para Redes Sociales */}
               <a href="#" className="social-link" aria-label="Facebook">
-                <span>📘</span>
+                <Facebook size={20} />
               </a>
               <a href="#" className="social-link" aria-label="Twitter">
-                <span>🐦</span>
+                <Twitter size={20} />
               </a>
               <a href="#" className="social-link" aria-label="Instagram">
-                <span>📷</span>
+                <Instagram size={20} />
               </a>
               <a href="#" className="social-link" aria-label="LinkedIn">
-                <span>💼</span>
+                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -149,14 +164,20 @@ const Footer = () => {
             <h4 className="footer-title">Descargas</h4>
             <div className="footer-downloads">
               <a href="#" className="download-btn" onClick={(e) => e.preventDefault()}>
-                <span className="download-icon">📱</span>
+                {/* CAMBIO: Ícono de Lucide para Android */}
+                <span className="download-icon">
+                  <Smartphone size={24} /> 
+                </span>
                 <div className="download-text">
                   <span className="download-label">Descarga en</span>
                   <span className="download-store">Google Play</span>
                 </div>
               </a>
               <a href="#" className="download-btn" onClick={(e) => e.preventDefault()}>
-                <span className="download-icon">🍎</span>
+                {/* CAMBIO: Ícono de Lucide para Apple */}
+                <span className="download-icon">
+                  <Apple size={24} />
+                </span>
                 <div className="download-text">
                   <span className="download-label">Descarga en</span>
                   <span className="download-store">App Store</span>
@@ -176,7 +197,8 @@ const Footer = () => {
                   required
                 />
                 <button type="submit" className="newsletter-btn">
-                  ➤
+                  {/* CAMBIO: Ícono de Lucide para el botón de enviar */}
+                  <Send size={20} />
                 </button>
               </form>
             </div>
@@ -209,7 +231,8 @@ const Footer = () => {
 
           <div className="footer-bottom-right">
             <button className="back-to-top" onClick={handleScrollToTop}>
-              <span>↑</span>
+              {/* CAMBIO: Ícono de Lucide para "Volver arriba" */}
+              <ArrowUp size={18} />
               <span>Volver arriba</span>
             </button>
           </div>
@@ -218,15 +241,24 @@ const Footer = () => {
         {/* Trust Badges */}
         <div className="footer-trust">
           <div className="trust-badge">
-            <span className="trust-icon">🔒</span>
+            {/* CAMBIO: Ícono de Lucide para SSL Seguro */}
+            <span className="trust-icon">
+              <Lock size={20} />
+            </span>
             <span className="trust-text">SSL Seguro</span>
           </div>
           <div className="trust-badge">
-            <span className="trust-icon">✓</span>
+            {/* CAMBIO: Ícono de Lucide para GDPR */}
+            <span className="trust-icon">
+              <CheckCircle size={20} />
+            </span>
             <span className="trust-text">GDPR Compliant</span>
           </div>
           <div className="trust-badge">
-            <span className="trust-icon">🇲🇽</span>
+            {/* CAMBIO: Ícono de Lucide para "Hecho en México" */}
+            <span className="trust-icon">
+              <MapPin size={20} />
+            </span>
             <span className="trust-text">Hecho en México</span>
           </div>
         </div>

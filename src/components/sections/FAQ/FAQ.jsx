@@ -1,4 +1,17 @@
+// src/components/sections/FAQ/FAQ.jsx
 import { useState } from 'react';
+import { 
+  ChevronDown,
+  List,
+  DollarSign,
+  Settings,
+  Shield,
+  Sparkles,
+  MessageCircle,
+  User,
+  Mail,
+  Send
+} from 'lucide-react';
 import './FAQ.css';
 
 const faqData = [
@@ -73,13 +86,13 @@ const FAQ = () => {
   };
 
   const categories = [
-    { id: 'all', label: 'Todas', icon: '📋' },
-    { id: 'pricing', label: 'Precios', icon: '💰' },
-    { id: 'technical', label: 'Técnicas', icon: '⚙️' },
-    { id: 'security', label: 'Seguridad', icon: '🔒' },
-    { id: 'features', label: 'Funciones', icon: '✨' },
-    { id: 'support', label: 'Soporte', icon: '💬' },
-    { id: 'account', label: 'Cuenta', icon: '👤' }
+    { id: 'all', label: 'Todas', icon: List },
+    { id: 'pricing', label: 'Precios', icon: DollarSign },
+    { id: 'technical', label: 'Técnicas', icon: Settings },
+    { id: 'security', label: 'Seguridad', icon: Shield },
+    { id: 'features', label: 'Funciones', icon: Sparkles },
+    { id: 'support', label: 'Soporte', icon: MessageCircle },
+    { id: 'account', label: 'Cuenta', icon: User }
   ];
 
   const filteredFAQs = selectedCategory === 'all' 
@@ -99,16 +112,20 @@ const FAQ = () => {
 
         {/* Category Filter */}
         <div className="faq-categories">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              className={`faq-category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              <span className="category-icon">{category.icon}</span>
-              <span>{category.label}</span>
-            </button>
-          ))}
+          {categories.map((category) => {
+            const IconComponent = category.icon;
+            return (
+              <button
+                key={category.id}
+                className={`faq-category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category.id)}
+                aria-label={`Filtrar por ${category.label}`}
+              >
+                <IconComponent className="category-icon" size={18} strokeWidth={2.5} />
+                <span>{category.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* FAQ Items */}
@@ -125,9 +142,11 @@ const FAQ = () => {
                   aria-expanded={openIndex === index}
                 >
                   <span className="faq-question-text">{faq.question}</span>
-                  <span className={`faq-icon ${openIndex === index ? 'rotated' : ''}`}>
-                    ▼
-                  </span>
+                  <ChevronDown 
+                    className={`faq-icon ${openIndex === index ? 'rotated' : ''}`}
+                    size={24}
+                    strokeWidth={2.5}
+                  />
                 </button>
                 <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
                   <div className="faq-answer-content">
@@ -149,10 +168,12 @@ const FAQ = () => {
           <p>Nuestro equipo está listo para ayudarte</p>
           <div className="faq-cta-buttons">
             <a href="mailto:soporte@ressly.com" className="faq-cta-btn primary">
-              📧 Enviar un email
+              <Mail size={20} />
+              <span>Enviar un email</span>
             </a>
             <a href="#" className="faq-cta-btn secondary">
-              💬 Chat en vivo
+              <Send size={20} />
+              <span>Chat en vivo</span>
             </a>
           </div>
         </div>
