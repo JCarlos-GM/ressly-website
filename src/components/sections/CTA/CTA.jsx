@@ -1,4 +1,3 @@
-// src/components/sections/CTA/CTA.jsx
 import { useState, useEffect } from 'react';
 import Button from '../../common/Button/Button';
 import { 

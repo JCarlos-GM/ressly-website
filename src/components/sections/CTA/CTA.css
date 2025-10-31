@@ -1,5 +1,3 @@
-/* src/components/sections/CTA/CTA.css */
-
 :root {
   --teal-200: #81E6D9;
   --teal-500: #319795;
@@ -361,7 +359,6 @@
   }
 }
 
-/* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .cta-circle,
   .cta-badge,

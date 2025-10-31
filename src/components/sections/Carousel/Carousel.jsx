@@ -1,4 +1,4 @@
-// src/components/sections/Carousel/Carousel.jsx
+
 import { useState, useEffect, useCallback } from 'react';
 import { 
   LayoutDashboard, 
