@@ -1,44 +1,194 @@
 // src/components/sections/Hero/Hero.jsx
+import { useState, useEffect } from 'react';
 import Button from '../../common/Button/Button';
 import './Hero.css';
 
 const Hero = () => {
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [userOS, setUserOS] = useState('android');
+
+  // Capturas de pantalla de tu app
+  const screens = [
+    {
+      id: 1,
+      image: '/images/screens/dashboard.png',
+      title: 'Dashboard',
+      description: 'Vista general de tu residencia'
+    },
+    {
+      id: 2,
+      image: '/images/screens/payments.png',
+      title: 'Pagos',
+      description: 'Gestiona tus pagos fácilmente'
+    },
+    {
+      id: 3,
+      image: '/images/screens/acces.png',
+      title: 'Accesos',
+      description: 'Control de accesos en tiempo real'
+    },
+    {
+      id: 4,
+      image: '/images/screens/reservations.png',
+      title: 'Reservas',
+      description: 'Reserva áreas comunes'
+    },
+    {
+      id: 5,
+      image: '/images/screens/profile.png',
+      title: 'Perfil',
+      description: 'Personaliza tu información'
+    }
+  ];
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor;
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      setUserOS('ios');
+    }
+  }, []);
+
+  // Auto-cambio de pantallas
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentScreen((prev) => (prev + 1) % screens.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [screens.length]);
+
   const handleDownload = () => {
-    // Aquí irá la lógica de descarga
-    console.log('Descargando app...');
+    const urls = {
+      android: 'https://play.google.com/store/apps/details?id=com.ressly.app',
+      ios: 'https://apps.apple.com/app/ressly/id123456789'
+    };
+    window.open(urls[userOS], '_blank', 'noopener,noreferrer');
+  };
+
+  const handleAccessPanel = () => {
+    // Cambia esta URL por la de tu panel administrativo
+    window.open('https://admin.ressly.com', '_blank', 'noopener,noreferrer');
+    // O si está en el mismo dominio:
+    // window.location.href = '/admin/login';
   };
 
   return (
-    <section className="hero">
+    <section className="hero" aria-label="Sección principal">
       <div className="container hero-content">
         <div className="hero-text">
-          <span className="hero-badge">Gratis para residentes</span>
-          <h2 className="hero-title">
-            Transforma la gestión de tu residencia
-          </h2>
+          <span className="hero-badge">
+            <span className="badge-icon">✨</span>
+            Gratis para residentes
+          </span>
+          <h1 className="hero-title">
+            Transforma la gestión de tu{' '}
+            <span className="gradient-text">residencia</span>
+          </h1>
           <p className="hero-description">
             Ressly simplifica la administración, comunicación y pagos de tu residencia. 
             Todo en una sola plataforma, accesible desde cualquier dispositivo.
           </p>
+          
+          {/* Features destacados */}
+          <div className="hero-features">
+            <div className="feature-item">
+              <span className="feature-icon">💳</span>
+              <span>Pagos seguros</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">💬</span>
+              <span>Chat integrado</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">📊</span>
+              <span>Reportes en tiempo real</span>
+            </div>
+          </div>
+
           <div className="hero-buttons">
             <Button 
               variant="primary" 
               size="large"
-              icon="📥"
+              icon={userOS === 'ios' ? '🍎' : '📥'}
               onClick={handleDownload}
             >
-              Descargar para Android
+              Descargar app móvil
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="large"
+              icon="🖥️"
+              onClick={handleAccessPanel}
+            >
+              Panel administrativo
             </Button>
           </div>
         </div>
 
+        {/* Mockup del dispositivo */}
         <div className="hero-mockup-container">
-          <div className="hero-mockup">
-            <div className="mockup-icon">📱</div>
-            <h3>Ressly App</h3>
-            <p>Gestión inteligente</p>
+          <div className="phone-mockup">
+            {/* Marco del teléfono */}
+            <div className="phone-frame">
+              {/* Notch superior */}
+              <div className="phone-notch"></div>
+              
+              {/* Pantalla */}
+              <div className="phone-screen">
+                {screens.map((screen, index) => (
+                  <div
+                    key={screen.id}
+                    className={`screen-slide ${index === currentScreen ? 'active' : ''}`}
+                  >
+                    <img 
+                      src={screen.image} 
+                      alt={screen.title}
+                      className="screen-image"
+                    />
+                  </div>
+                ))}
+                
+                {/* Overlay con gradiente */}
+                <div className="screen-overlay"></div>
+              </div>
+
+              {/* Botón home */}
+              <div className="phone-home-button"></div>
+            </div>
+
+            {/* Efectos decorativos */}
+            <div className="phone-glow"></div>
+            <div className="floating-elements">
+              <div className="floating-element" style={{'--delay': '0s'}}>💳</div>
+              <div className="floating-element" style={{'--delay': '1s'}}>📊</div>
+              <div className="floating-element" style={{'--delay': '2s'}}>🔔</div>
+            </div>
+          </div>
+
+          {/* Indicadores de pantalla */}
+          <div className="screen-indicators">
+            {screens.map((_, index) => (
+              <button
+                key={index}
+                className={`indicator ${index === currentScreen ? 'active' : ''}`}
+                onClick={() => setCurrentScreen(index)}
+                aria-label={`Ver pantalla ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Info de la pantalla actual */}
+          <div className="screen-info">
+            <h3>{screens[currentScreen].title}</h3>
+            <p>{screens[currentScreen].description}</p>
           </div>
         </div>
+      </div>
+
+      {/* Formas decorativas de fondo */}
+      <div className="hero-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+        <div className="shape shape-3"></div>
       </div>
     </section>
   );
