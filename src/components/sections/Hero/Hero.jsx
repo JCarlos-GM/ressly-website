@@ -66,7 +66,7 @@ const Hero = () => {
   };
 
   const handleAccessPanel = () => {
-    window.open('https://admin.ressly.com', '_blank', 'noopener,noreferrer');
+    window.open('https://admin.ressly.com.mx/', '_self', 'noopener,noreferrer');
   };
 
   return (
