@@ -42,6 +42,7 @@ const Hero = () => {
     }
   ];
 
+  // Detectar sistema operativo
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor;
     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
@@ -49,7 +50,7 @@ const Hero = () => {
     }
   }, []);
 
-  // Auto-cambio de pantallas
+  // Auto-cambio de pantallas (Carrusel)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentScreen((prev) => (prev + 1) % screens.length);
@@ -57,12 +58,24 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [screens.length]);
 
+  // --- FUNCIÓN DE DESCARGA CORREGIDA SEGÚN TU IMAGEN ---
   const handleDownload = () => {
-    const urls = {
-      android: 'https://play.google.com/store/apps/details?id=com.ressly.app',
-      ios: 'https://apps.apple.com/app/ressly/id123456789'
-    };
-    window.open(urls[userOS], '_blank', 'noopener,noreferrer');
+    if (userOS === 'ios') {
+      // Si es iOS, redirige a la App Store (o pon tu link real cuando lo tengas)
+      window.open('https://apps.apple.com/app/ressly/id123456789', '_blank', 'noopener,noreferrer');
+    } else {
+      // Si es Android/PC, descarga el APK directamente
+      const link = document.createElement('a');
+      
+      // Ruta basada en tu carpeta: public/app/ressly-app.apk
+      // En el navegador, 'public' es la raíz '/'
+      link.href = '/app/ressly-app.apk'; 
+      
+      link.download = 'Ressly.apk'; // Nombre limpio para el usuario al guardar
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   const handleAccessPanel = () => {
@@ -109,7 +122,7 @@ const Hero = () => {
               icon={userOS === 'ios' ? <Apple size={20} /> : <Download size={20} />}
               onClick={handleDownload}
             >
-              Descargar app móvil
+              {userOS === 'ios' ? 'Descargar en App Store' : 'Descargar App Android'}
             </Button>
             <Button 
               variant="secondary" 
